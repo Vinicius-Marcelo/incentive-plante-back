@@ -2,7 +2,7 @@ const express = require(`express`);
 const routes = express();
 
 const user = require(`../controllers/user`);
-const tree = require(`./controllers/tree`);
+const tree = require(`../controllers/tree`);
 const { verifyLogin } = require('../middlewares/verifyLogin');
 
 routes.post('/signup', user.registerUser)

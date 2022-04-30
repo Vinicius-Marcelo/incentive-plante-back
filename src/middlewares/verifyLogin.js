@@ -1,6 +1,6 @@
-import jwt from 'jsonwebtoken';
-import jwtSecret from '../jwt_secret';
-import knex from '../services/knex';
+const jwt = require('jsonwebtoken');
+const jwtSecret = require('../jwt_secret');
+const knex = require('../services/knex');
 
 const verifyLogin = async (req, res, next) => {
     const token = req.header('authorization');

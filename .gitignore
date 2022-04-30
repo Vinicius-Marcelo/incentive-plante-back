@@ -2,3 +2,4 @@ node_modules
 axios.js
 knex.js
 jwt_secret.js
+query.sql
