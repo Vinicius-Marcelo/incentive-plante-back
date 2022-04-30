@@ -13,5 +13,6 @@ routes.use(verifyLogin);
 routes.put('/user', user.updateUser);
 
 routes.get('/trees', tree.listAllTrees);
+routes.post('/tree/adopt', tree.paymentAdoptedTree);
 
 module.exports = routes;

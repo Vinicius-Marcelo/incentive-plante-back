@@ -1,5 +1,7 @@
-const { default: knex } = require('knex');
+const knex = require('../services/connection');
+const bcrypt = require('bcrypt');
 const { fieldsToUser, fieldsToLogin } = require('../validations/requiredFields');
+
 const error = require('../messages/error');
 const success = require('../messages/success');
 
@@ -12,14 +14,14 @@ const registerUser = async (req, res) => {
     }
 
     try {
-        const userExists = await knex('user').select('email').where({ email });
+        const userExists = await knex('users').select('email').where({ email });
         if(userExists.length > 0) {
             return res.status(404).json(error.emailAlreadyBeenUsed);
         }
 
         const hash = await bcrypt.hash(password, 10);
 
-        const userCreated = await knex('user').insert({ name, email, password: hash, cep });
+        const userCreated = await knex('users').insert({ name, email, password: hash, cep });
         if(userCreated.length === 0) {
             return res.status(400).json(error.badRequest);
         }
@@ -55,7 +57,7 @@ const updateUser = async (req, res) => {
     }
 
     try {
-        const userExists = await knex('user').select('email').where({ email });
+        const userExists = await knex('users').select('email').where({ email });
         if(userExists.length > 0) {
             if (userExists[0].email !== email) {
                 return res.status(404).json(error.emailAlreadyBeenUsed);
@@ -64,7 +66,7 @@ const updateUser = async (req, res) => {
 
         const hash = await bcrypt.hash(password, 10);
 
-        const userCreated = await knex('user').insert({ name, email, password: hash, cep });
+        const userCreated = await knex('users').insert({ name, email, password: hash, cep });
         if(userCreated.length === 0) {
             return res.status(400).json(error.badRequest);
         }
