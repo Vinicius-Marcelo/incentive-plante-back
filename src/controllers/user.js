@@ -1,14 +1,15 @@
 const knex = require('../services/connection');
 const bcrypt = require('bcrypt');
+const jwt_secret = require('../jwt_secret');
 const { fieldsToUser, fieldsToLogin } = require('../validations/requiredFields');
 
 const error = require('../messages/error');
 const success = require('../messages/success');
 
 const registerUser = async (req, res) => {
-    const { name, email, password, cep } = req.body;
+    const { name, email,cep, age, password  } = req.body;
 
-    if (cep.length != 8) {
+    if (cep.length !== 8) {
         return res.status(400).json(error.cepLengthWrong);
     }
 
@@ -25,7 +26,7 @@ const registerUser = async (req, res) => {
 
         const hash = await bcrypt.hash(password, 10);
 
-        const userCreated = await knex('users').insert({ name, email, password: hash, cep });
+        const userCreated = await knex('users').insert({ name, email, age, password: hash, cep });
         if(userCreated.length === 0) {
             return res.status(400).json(error.badRequest);
         }
@@ -46,24 +47,30 @@ const login = async (req, res) => {
 
     try {
         const userExists = await knex('users').where({ email });
-        if(userExists.length > 0) {
+        if(userExists.length === 0) {
             return res.status(404).json(error.emailAlreadyBeenUsed);
         }
 
         const user = userExists[0];
 
         const correctPassword = await bcrypt.compare(password, user.password);
-        if (!correctPassword) {
+        if (!correctPassword.length) {
             return res.status(404).json(error.loginWrong);
         }
-        const token = jwt.sign({ id: user.id }, passwordHash, { expiresIn: '8h' });
-        const { password: _, ...userData } = user;
-        return res.status(200).json({
-            user: userData,
-            token
-        })
 
-        return res.status(201).json(success.userIn);
+        const token = jwt.sign({ 
+            id: user.id 
+        }, jwt_secret, 
+        { expiresIn: '8h' });
+
+        return res.send({
+            usuarios: {
+                id: user.id,
+                nome: user.nome,
+                email: user.email
+            },
+            token
+        });
     } catch (error) {
         return res.status(400).json(error.message);
     }
