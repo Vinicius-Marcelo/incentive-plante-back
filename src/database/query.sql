@@ -8,7 +8,7 @@ create table users (
     cep text not null
 );
 
-create table tree (
+create table trees (
     id serial primary key,
     name text not null,
     region text not null,

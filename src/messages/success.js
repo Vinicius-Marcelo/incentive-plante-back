@@ -7,4 +7,8 @@ const message = {
     noContent: 'Requisição bem sucedida, sem conteúdo no corpo da resposta',
 }
 
+// 200 (OK) = requisição bem sucedida
+// 201 (Created) = requisição bem sucedida e algo foi criado
+// 204 (No Content) = requisição bem sucedida, sem conteúdo no corpo da resposta
+
 module.exports = message
