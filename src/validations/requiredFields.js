@@ -1,7 +1,9 @@
+const message = require('../messages/error')
+
 const fieldsToUser = ({ name, email, password, cep }) => {
     if (!name) {
         const response = {
-            message: '',
+            message: message.nameDontExists,
             ok: false
         }
         return response;
@@ -9,7 +11,7 @@ const fieldsToUser = ({ name, email, password, cep }) => {
 
     if (!email) {
         const response = {
-            message: '',
+            message: message.emailDontExists,
             ok: false
         }
         return response;
@@ -17,7 +19,7 @@ const fieldsToUser = ({ name, email, password, cep }) => {
 
     if (!password) {
         const response = {
-            message: '',
+            message: message.passwordDontExists,
             ok: false
         }
         return response;
@@ -25,7 +27,7 @@ const fieldsToUser = ({ name, email, password, cep }) => {
 
     if (!cep) {
         const response = {
-            message: '',
+            message: message.cepDontExists,
             ok: false
         }
         return response;
@@ -37,7 +39,7 @@ const fieldsToUser = ({ name, email, password, cep }) => {
 const fieldsToLogin = ({ email, password }) => {
     if (!email) {
         const response = {
-            message: '',
+            message: message.emailDontExists,
             ok: false
         }
         return response;
@@ -45,7 +47,7 @@ const fieldsToLogin = ({ email, password }) => {
 
     if (!password) {
         const response = {
-            message: '',
+            message: message.passwordDontExists,
             ok: false
         }
         return response;
