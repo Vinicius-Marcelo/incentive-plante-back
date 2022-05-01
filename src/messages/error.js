@@ -9,6 +9,8 @@ const message = {
     forbidden: 'O usuário não tem permissão de acessar o recurso solicitado',
     notFound: 'Não foi possível encontrar o que foi solicitado',
     fieldEmpty: 'Um dos campos obrigatório está vazio',
+    cepLengthWrong: 'Valor do CEP invalido',
+    loginWrong: 'E-mail ou senha invalidos'
 }
 
 // 400 (Bad Request) = o servidor não entendeu a requisição pois está com uma sintaxe/formato inválido
