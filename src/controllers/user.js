@@ -47,7 +47,7 @@ const login = async (req, res) => {
 
     try {
         const userExists = await knex('users').where({ email });
-        if(userExists.length > 0) {
+        if(userExists.length === 0) {
             return res.status(404).json(error.emailAlreadyBeenUsed);
         }
 
