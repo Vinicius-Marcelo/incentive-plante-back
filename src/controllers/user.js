@@ -1,5 +1,6 @@
 const knex = require('../services/connection');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const jwt_secret = require('../jwt_secret');
 const { fieldsToUser, fieldsToLogin } = require('../validations/requiredFields');
 
@@ -54,7 +55,7 @@ const login = async (req, res) => {
         const user = userExists[0];
 
         const correctPassword = await bcrypt.compare(password, user.password);
-        if (!correctPassword.length) {
+        if (!correctPassword) {
             return res.status(404).json(error.loginWrong);
         }
 
@@ -63,7 +64,7 @@ const login = async (req, res) => {
         }, jwt_secret, 
         { expiresIn: '8h' });
 
-        return res.send({
+        return res.status(200).json({
             usuarios: {
                 id: user.id,
                 nome: user.nome,
