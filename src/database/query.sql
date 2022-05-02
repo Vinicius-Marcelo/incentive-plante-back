@@ -4,7 +4,7 @@ create table users (
     id serial primary key,
     name text not null,
     email text not null,
-    idade integer not null,
+    age integer not null,
     cep text not null,
     password text not null
 );
