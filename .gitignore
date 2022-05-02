@@ -1,5 +1,1 @@
 node_modules
-gateway.js
-connection.js
-jwt_secret.js
-query.sql
