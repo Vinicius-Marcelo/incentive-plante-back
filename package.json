@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Vinicius Barros and Maria Eduarda Furtado",
   "license": "ISC",
   "dependencies": {
-    "cros": "^1.0.1",
+    "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "express": "^4.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^2.0.0",
     "pg": "^8.7.3"
   },
   "devDependencies": {
